@@ -2,26 +2,13 @@ import './Register.css';
 import React from 'react';
 import { useState } from 'react';
 import { axiosRegister } from '../../services/authServices.js';
-
-/*
-	"Usuario": {
-		"email": "anyemail@mail.com",
-		"nombrecompleto": "realname",
-		"nombreusuario": "username",
-		"contrasenna": "password",
-		"idwallet": "optional wallet",
-		"tipousuario": "userType - Prestatario, Prestamista or Administrador"
-	},
-	"perfil": {
-		"dni": "x",
-		"historialcrediticio": "x",
-		"comprobantedeingreso": "x",
-		"descripcionfinanciera": "x"
-	}
-*/
+import BorrowerForm from '../borrowerForm/borrowerForm.js';
+import Modal from 'react-bootstrap/Modal';
 
 const handleRegister = async (e) => {
 	e.preventDefault();
+
+	console.log("BIGLULZ", e);
 
 	let Usuario = {
 		email: e.target.email.value,
@@ -34,6 +21,7 @@ const handleRegister = async (e) => {
 	let perfil = {
 		dni: e.target.DNI.value,
 		historialcrediticio: e.target.creditHistory.value,
+		extractobancario: e.target.bankExtract.value,
 		comprobantedeingreso: e.target.revenueProof.value,
 		descripcionfinanciera: e.target.financialDesc.value
 	};
@@ -48,6 +36,10 @@ const handleRegister = async (e) => {
 
 function Register() {
 	const [userType, setUserType] = useState();
+	const [show, setShow] = useState(false);
+
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 
 	return (
 		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
@@ -84,39 +76,29 @@ function Register() {
 						</div>
 						<div className="mb-1">
 							<label className="form-label">Tipo de usuario</label>
-							<select className="form-select" id='userType' aria-label="Register select">
+							<select className="form-select" id='userType' onChange={e => setUserType(e.target.value)} aria-label="Register select">
 								<option selected>Tipo de usuario</option>
-								<option value="Prestatario" onClick={() => setUserType("Prestatario")}>Prestatario</option>
-								<option value="Prestamista" onClick={() => setUserType("Prestamista")}>Prestamista</option>
+								<option value="Prestatario">Prestatario</option>
+								<option value="Prestamista">Prestamista</option>
 							</select>
 						</div>
+					</div>
+					<div className="modal-footer">
 						{
-							userType === "Prestamista" ?
-								<>
-									<div className="mb-3">
-										<label className="form-label">Historial Crediticio</label>
-										<input type="text" className="form-control" id="creditHistory" placeholder='Historial Crediticio' />
-									</div>
-									<div className="mb-3">
-										<label className="form-label">Comprobante de Ingreso</label>
-										<input type="text" className="form-control" id="revenueProof" placeholder='Comprobante de ingreso' />
-									</div>
-									<div className="mb-3">
-										<label className="form-label">Descripcion Financiera</label>
-										<input type="text" className="form-control" id="financialDesc" placeholder='Descripcion financiera' />
-									</div>
-								</>
+							userType === "Prestamista" ? <button class="btn btn-primary" data-bs-dismiss="modal" onClick={(e) => { handleShow(); e.preventDefault(); }}>Continuar</button>
 								:
 								<>
 									<input type="hidden" className="form-control" id="creditHistory" value='x' />
 									<input type="hidden" className="form-control" id="revenueProof" value='x' />
 									<input type="hidden" className="form-control" id="financialDesc" value='x' />
+									<input type="hidden" className="form-control" id="bankExtract" value='x' />
+									<button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Register</button>
 								</>
 						}
 					</div>
-					<div className="modal-footer">
-						<button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Register</button>
-					</div>
+					<Modal show={show} onHide={handleClose}>
+						<BorrowerForm></BorrowerForm>
+					</Modal>
 				</form>
 			</div>
 		</div>

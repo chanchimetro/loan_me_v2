@@ -1,3 +1,4 @@
+import "./Layout.css";
 import React, { useContext } from 'react';
 import logo from '../../assets/LoanMe.svg';
 import { Outlet, Link } from "react-router-dom";
@@ -37,10 +38,10 @@ function Layout() {
 						<div className='d-flex'>
 							{
 								context.user.Username === "" ? <>
-									<button type="button" className="btn btn-link text-decoration-none text-dark border mx-3" data-bs-toggle="modal" data-bs-target="#loginModal">
+									<button type="button" className="btn btn-link text-decoration-none text-dark border mx-3 auth-btn" data-bs-toggle="modal" data-bs-target="#loginModal">
 										Login
 									</button>
-									<button type="button" className="btn btn-link text-decoration-none text-dark border" data-bs-toggle="modal" data-bs-target="#registerModal">
+									<button type="button" className="btn btn-link text-decoration-none text-dark border auth-btn" data-bs-toggle="modal" data-bs-target="#registerModal">
 										Register
 									</button>
 								</> :

@@ -1,8 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { loansContext } from '../../contexts/loansContext';
+import { userContext } from '../../contexts/userContext';
 
 function Home() {
+	let user = useContext(userContext);
+	let loans = useContext(loansContext);
 	useEffect(() => {
-		
+		if (user.user.SessionId != "" ) {
+			
+		}
 	}, [])
 
 	return (

@@ -46,27 +46,30 @@ function Profile() {
 							<button type="button" class="list-group-item bg-secondary-subtle list-group-item-action" data-bs-toggle="modal" data-bs-target="#changePwdModal">Cambiar contraseña</button>
 						</ul>
 					</div>
-					<div className='col text-center d-flex align-items-center'>
-						<ul class="list-group w-75 mx-auto">
-							<li class="list-group-item">
-								<div className='float-start fw-bold col-4'>Historial crediticio:</div>
-								<div className='col'>{userInfo.perfil.historialcrediticio}</div>
-							</li>
-							<li class="list-group-item">
-								<div className='float-start fw-bold col-4'>Comprobante ingreso:</div>
-								<div className='col'>{userInfo.perfil.comprobantedeingreso}</div>
-							</li>
-							<li class="list-group-item">
-								<div className='float-start fw-bold col-4'>Desc. financiera:</div>
-								<div className='col'>{userInfo.perfil.descripcionfinanciera}</div>
-							</li>
-							<li class="list-group-item">
-								<div className='float-start fw-bold col-4'>Extracto bancario:</div>
-								<div className='col'>{userInfo.perfil.extractobancario}</div>
-							</li>
-							<button type="button" class="list-group-item bg-secondary-subtle list-group-item-action" data-bs-toggle="modal" data-bs-target="#changeCreditModal">Cambiar información financiera</button>
-						</ul>
-					</div>
+					{
+						userInfo.Usuario.tipousuario === "Prestatario" ? <></>:
+							<div className='col text-center d-flex align-items-center'>
+								<ul class="list-group w-75 mx-auto">
+									<li class="list-group-item">
+										<div className='float-start fw-bold col-4'>Historial crediticio:</div>
+										<div className='col'>{userInfo.perfil.historialcrediticio}</div>
+									</li>
+									<li class="list-group-item">
+										<div className='float-start fw-bold col-4'>Comprobante ingreso:</div>
+										<div className='col'>{userInfo.perfil.comprobantedeingreso}</div>
+									</li>
+									<li class="list-group-item">
+										<div className='float-start fw-bold col-4'>Desc. financiera:</div>
+										<div className='col'>{userInfo.perfil.descripcionfinanciera}</div>
+									</li>
+									<li class="list-group-item">
+										<div className='float-start fw-bold col-4'>Extracto bancario:</div>
+										<div className='col'>{userInfo.perfil.extractobancario}</div>
+									</li>
+									<button type="button" class="list-group-item bg-secondary-subtle list-group-item-action" data-bs-toggle="modal" data-bs-target="#changeCreditModal">Cambiar información financiera</button>
+								</ul>
+							</div>
+					}
 				</div >
 				<div class="modal fade" id="changePwdModal" tabindex="-1" aria-labelledby="changePwdModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered">
