@@ -6,14 +6,14 @@ const handleChangeCredit = async (e, context) => {
 	e.preventDefault();
 	let data = {
 		Usuario: {
-			"nombreUsuario": context.user.Username,
-			"contrasenna": ""
+			nombreUsuario: context.user.Username,
+			contrasenna: ""
 		},
-		"perfil": {
-			"historialcrediticio": e.target.creditHist.value,
-			"extractobancario": e.target.bankExtract.value,
-			"comprobantedeingreso": e.target.revenueProof.value,
-			"descripcionfinanciera": e.target.financialDesc.value
+		perfil: {
+			historialcrediticio: e.target.creditHist.value,
+			extractobancario: e.target.bankExtract.value,
+			comprobantedeingreso: e.target.revenueProof.value,
+			descripcionfinanciera: e.target.financialDesc.value
 		}
 	};
 	try{
