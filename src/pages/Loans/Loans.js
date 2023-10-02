@@ -29,10 +29,7 @@ function Loans() {
 	}, []);
 
 	useEffect(() => {
-		console.log("offers")
-		console.log(loans.loanOffers)
-		console.log("Rquest")
-		console.log(loans.loanRequests)
+		console.log(loans);
 	}, [loans.loanOffers, loans.loanRequests])
 
 	return (
@@ -51,13 +48,13 @@ function Loans() {
 						<div className='col'>
 							<p className='h3'>Ofertas</p>
 							{
-								//loans.loanOffers.length > 0 ? {loans.loanOffers.map((x)=><LoanCard info={x}></LoanCard>)} : <p>0</p>
+								loans.loanOffers.length > 0 ? loans.loanOffers.map((x)=><LoanCard info={x}></LoanCard>) : <p className='text-muted'>No hay ofertas actualmente...</p>
 							}
 						</div>
 						<div className='col'>
 							<p className='h3'>Peticiones</p>
 							{
-								//loans.loanRequests.length > 0 ? {loans.loanRequests.map((x)=><LoanCard info={x}></LoanCard>)} : <p>0</p>
+								loans.loanRequests.length > 0 ? loans.loanRequests.map((x)=><LoanCard info={x}></LoanCard>) : <p className='text-muted'>No hay peticiones actualmente...</p>
 							}
 						</div>
 					</div>

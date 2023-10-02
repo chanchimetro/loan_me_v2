@@ -36,7 +36,7 @@ function Home() {
 						<hr></hr>
 						{
 							!isLogged ?
-							<p>Esto deberia ser un texto de introducción y eyy no voy a pensar en uno (un texto de introduccion!) !!!!!!!!!!!!!! Ya se..... UGH YA SE..... que no voy a pensar en uno JAJAJAJAJAJAJJA bueno, lo importante: <b>Inicia sesión para ver los prestamos disponibles o crear los tuyos!</b></p> : 
+							<p><b>Inicia sesión para ver los prestamos disponibles o crear los tuyos!</b></p> : 
 							<>
 								<Link to='/loans'>Ver prestamos</Link>
 							</>
