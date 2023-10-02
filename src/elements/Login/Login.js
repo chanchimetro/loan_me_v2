@@ -6,8 +6,8 @@ import { userContext } from '../../contexts/userContext';
 const handleLogin = async (e, context) => {
 	e.preventDefault();
 	let Usuario = {
-		nombreusuario: e.target.username.value,
-		contrasenna: e.target.password.value,
+		nombreUsuario: e.target.username.value,
+		contrasenna: e.target.password.value
 	};
 	console.log(JSON.stringify({ Usuario }))
 	try {
@@ -15,7 +15,7 @@ const handleLogin = async (e, context) => {
 		console.log(r);
 		context.setUser(
 			{
-				Username: Usuario.nombreusuario,
+				Username: Usuario.nombreUsuario,
 				SessionId: r.data.sessionId
 			}
 		);
@@ -28,26 +28,30 @@ function Login() {
 	const context = useContext(userContext);
 
 	return (
-		<div className="modal-content">
-			<div className="modal-header">
-				<h1 className="modal-title fs-5" id="loginModalLabel">Login</h1>
-				<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div className="modal-content">
+					<div className="modal-header border-bottom border-secondary">
+						<h1 className="modal-title fs-5" id="loginModalLabel">Login</h1>
+						<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<form onSubmit={(e) => handleLogin(e, context)}>
+						<div className="modal-body">
+							<div className="mb-3">
+								<label className="form-label">Nombre de usuario</label>
+								<input type="text" className="form-control" id="username" placeholder='Nombre de usuario' />
+							</div>
+							<div className="mb-3">
+								<label className="form-label">Contraseña</label>
+								<input type="password" className="form-control" id="password" placeholder='Contraseña' />
+							</div>
+						</div>
+						<div className="modal-footer border-top border-secondary">
+							<button type="submit" className="btn btn-outline-success border border-2 border-success fw-semibold" data-bs-dismiss="modal">Login</button>
+						</div>
+					</form>
+				</div>
 			</div>
-			<form onSubmit={(e) => handleLogin(e, context)}>
-				<div className="modal-body">
-					<div className="mb-3">
-						<label className="form-label">Nombre de usuario</label>
-						<input type="text" className="form-control" id="username" placeholder='Nombre de usuario' />
-					</div>
-					<div className="mb-3">
-						<label className="form-label">Contraseña</label>
-						<input type="password" className="form-control" id="password" placeholder='Contraseña' />
-					</div>
-				</div>
-				<div className="modal-footer">
-					<button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Login</button>
-				</div>
-			</form>
 		</div>
 	);
 }

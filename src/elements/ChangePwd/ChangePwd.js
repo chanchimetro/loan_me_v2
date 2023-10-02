@@ -25,7 +25,7 @@ function ChangePwd() {
 
 	return (
 		<div class="modal-content">
-			<div class="modal-header">
+			<div class="modal-header border-bottom border-secondary">
 				<h1 class="modal-title fs-5" id="changePwdModalLabel">Cambiar contraseña</h1>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
@@ -34,14 +34,14 @@ function ChangePwd() {
 					<div className="mb-3">
 						<label className="form-label">Contraseña actual</label>
 						<input required type="password" className="form-control" id="currentPass" placeholder='Contraseña actual' aria-describedby="passHelp" />
-						<div id="passHelp" class="form-text">Si no te acordas tu contraseña podes recuperarla en la pagina de login.</div>
+						<div id="passHelp" class="form-text fw-semibold">Si no te acordas tu contraseña podes recuperarla en la pagina de login.</div>
 					</div>
 					<div className="mb-3">
 						<label className="form-label">Contraseña nueva</label>
 						<input required type="password" className="form-control" id="newPass" placeholder='Contraseña nueva' />
 					</div>
 				</div>
-				<div class="modal-footer">
+				<div class="modal-footer border-top border-secondary">
 					<button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Confirmar</button>
 				</div>
 			</form>

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let url = "http://10.152.2.102:4433/api/auth/";
+let url = "http://190.245.165.87:4433/api/auth/";
 
 const axiosLogin = async (user) => {
     return await axios.post(url+"login", user);
@@ -12,7 +12,7 @@ const axiosRegister = async (user) => {
 };
 
 const axiosLogout = async (sessionId) => {
-    return await axios.post(url+"login", {}, {
+    return await axios.post(url+"logout", {}, {
         headers: {
             "Authorization":sessionId
         }

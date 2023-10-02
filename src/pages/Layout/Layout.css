@@ -2,3 +2,28 @@
 {
     box-shadow: 2px 2px 3px rgb(133, 133, 133);
 }
+
+body
+{
+    background-image: url('../../assets/backdrop.png');
+}
+
+.navbar
+{
+    background-color: rgba(194, 194, 194, 0.692);
+}
+
+.modal-content
+{
+    background-color: rgba(194, 194, 194, 0.829);
+}
+
+.input
+{
+    background-color: rgba(255, 255, 255, 0.13) !important;
+}
+
+label
+{
+    font-weight: 550;
+}

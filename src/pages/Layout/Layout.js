@@ -8,7 +8,7 @@ import { userContext } from '../../contexts/userContext';
 import { axiosLogout } from '../../services/authServices';
 
 const handleLogout = async (context) => {
-	let r = await axiosLogout(context.user.sessionId);
+	let r = await axiosLogout(context.user.SessionId);
 	console.log(r);
 	context.setUser({
 		Username: "",
@@ -18,10 +18,12 @@ const handleLogout = async (context) => {
 
 function Layout() {
 	let context = useContext(userContext);
-
+	
 	return (
 		<>
-			<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		<Login />
+		<Register />
+			<nav class="navbar navbar-expand-lg">
 				<div class="container-fluid">
 					<a class="navbar-brand" href="#">
 						<img src={logo} alt="LoanMe" width="30" height="50" className='' />
@@ -38,10 +40,10 @@ function Layout() {
 						<div className='d-flex'>
 							{
 								context.user.Username === "" ? <>
-									<button type="button" className="btn btn-link text-decoration-none text-dark border mx-3 auth-btn" data-bs-toggle="modal" data-bs-target="#loginModal">
+									<button type="button" className="btn btn-link text-decoration-none text-dark border border-dark mx-3 auth-btn" data-bs-toggle="modal" data-bs-target="#loginModal">
 										Login
 									</button>
-									<button type="button" className="btn btn-link text-decoration-none text-dark border auth-btn" data-bs-toggle="modal" data-bs-target="#registerModal">
+									<button type="button" className="btn btn-link text-decoration-none text-dark border border-dark auth-btn" data-bs-toggle="modal" data-bs-target="#registerModal">
 										Register
 									</button>
 								</> :
@@ -52,7 +54,7 @@ function Layout() {
 										<ul className="dropdown-menu">
 											<li><Link className="dropdown-item" to="/profile">Mi perfil</Link></li>
 											<hr />
-											<li><Link className="dropdown-item" onClick={() => handleLogout(context)}>Cerrar sesión</Link></li>
+											<li><Link to={"/"} className="dropdown-item" onClick={() => handleLogout(context)}>Cerrar sesión</Link></li>
 										</ul>
 									</div>
 							}
@@ -61,14 +63,6 @@ function Layout() {
 				</div>
 			</nav>
 			<Outlet />
-			<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-					<Login />
-				</div>
-			</div>
-			<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-				<Register />
-			</div>
 		</>
 	);
 }
