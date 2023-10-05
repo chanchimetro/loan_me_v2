@@ -1,6 +1,7 @@
 import './LoanCard.css'
 
 import React from "react";
+import { Link } from 'react-router-dom';
 
 /*
 {
@@ -16,18 +17,20 @@ import React from "react";
 
 export default function LoanCard({ info }) {
 	return (
-		<div class="card text-start">
-			<div class="card-header fw-semibold ">
-				{info.loan.fechaCreacion}
+		<Link to='/'>
+			<div class="card text-start">
+				<div class="card-header fw-semibold ">
+					{info.loan.fechaCreacion}
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">$ {info.loan.monto} + {info.loan.interes}%</h5>
+					<ul className='list-group list-group-flush rounded'>
+						<li class="list-group-item card-text border-bottom border-secondary">Plazo: {info.loan.plazoPago}</li>
+						<li class="list-group-item card-text border-bottom border-secondary">Intervalo: {info.loan.intervaloPago}</li>
+						<li class="list-group-item card-text">Riesgo: {info.loan.riesgo}</li>
+					</ul>
+				</div>
 			</div>
-			<div class="card-body">
-				<h5 class="card-title">$ {info.loan.monto} + {info.loan.interes}%</h5>
-				<ul className='list-group list-group-flush rounded'>
-					<li class="list-group-item card-text border-bottom border-secondary">Plazo: {info.loan.plazoPago}</li>
-					<li class="list-group-item card-text border-bottom border-secondary">Intervalo: {info.loan.intervaloPago}</li>
-					<li class="list-group-item card-text">Riesgo: {info.loan.riesgo}</li>
-				</ul>
-			</div>
-		</div>
+		</Link>
 	);
 }

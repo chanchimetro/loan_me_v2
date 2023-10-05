@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let url = "http://10.152.2.102:4433/api/loans/";
+let url = "http://10.152.2.128:4433/api/loans/";
 
 const axiosGetLoanOffers = async (sessionId) => {
     return await axios.get(url + "getLoanOffers", {

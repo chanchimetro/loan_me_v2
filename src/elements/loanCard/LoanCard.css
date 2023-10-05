@@ -11,3 +11,8 @@ background-color: rgba(240, 248, 255, 0) !important;
 {
 background-color: rgba(240, 248, 255, 0) !important;
 }
+
+.card :hover
+{
+    box-shadow: 60px -16px rgb(119, 119, 119);
+}
