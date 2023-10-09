@@ -1,6 +1,7 @@
 import './Login.css';
 import React, { useContext } from 'react';
 import { axiosLogin } from '../../services/authServices.js';
+import { axiosGetUserInfo } from '../../services/userServices';
 import { userContext } from '../../contexts/userContext';
 
 const handleLogin = async (e, context) => {
@@ -12,11 +13,14 @@ const handleLogin = async (e, context) => {
 	console.log(JSON.stringify({ Usuario }))
 	try {
 		let r = await axiosLogin({ Usuario });
+		let u = await axiosGetUserInfo(r.data.sessionId);
 		console.log(r);
+		console.log(u);
 		context.setUser(
 			{
 				Username: Usuario.nombreUsuario,
-				SessionId: r.data.sessionId
+				SessionId: r.data.sessionId,
+				UserType: u.data.Usuario.tipoUsuario
 			}
 		);
 	} catch (e) {
