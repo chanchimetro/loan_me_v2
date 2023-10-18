@@ -17,8 +17,8 @@ import { Link } from 'react-router-dom';
 
 export default function LoanCard({ info }) {
 	return (
-		<Link to='/'>
-			<div class="card text-start">
+
+			<div class="card mt-3 text-start text-decoration-none">
 				<div class="card-header fw-semibold ">
 					{info.loan.fechaCreacion}
 				</div>
@@ -31,6 +31,5 @@ export default function LoanCard({ info }) {
 					</ul>
 				</div>
 			</div>
-		</Link>
 	);
 }

@@ -68,14 +68,14 @@ export default function LoanForm({ str }) {
 							</div>
 							<label for="" class="form-label">Intervalo de pagos</label>
 							<select class="form-select mb-3" onChange={(e) => setIntervaloPago(e.target.value)} aria-label="Default select example">
-								<option selected>Open this select menu</option>
+								<option selected>Seleccione el intervalo</option>
 								<option value="1">1/semana</option>
 								<option value="2">2/semana</option>
 								<option value="3">1/mes</option>
 							</select>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Crear</button>
+							<button type="button" class="btn btn-outline-success border border-2 border-success fw-semibold" data-bs-dismiss="modal">Crear</button>
 						</div>
 					</form>
 				</div>
