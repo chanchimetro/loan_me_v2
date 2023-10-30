@@ -19,8 +19,13 @@ const axiosLogout = async (sessionId) => {
     });
 };
 
+const axiosValidateUser = async (token) => {
+    return await axios.post(url+'confirmUser/'+token);
+};
+
 export {
     axiosLogin,
     axiosRegister,
-    axiosLogout
+    axiosLogout,
+    axiosValidateUser
 };

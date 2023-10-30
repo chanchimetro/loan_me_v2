@@ -26,7 +26,7 @@ function App() {
             <Route index element={<Home/>} />
             <Route path='profile' element={<Profile/>} />
             <Route path='loans' element={<Loans/>} />
-            <Route path='validateUser/:token' element={<ValidateUser/>}/>
+            <Route path='validateUser' element={<ValidateUser/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

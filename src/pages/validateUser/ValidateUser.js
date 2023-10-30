@@ -1,6 +1,5 @@
 import './ValidateUser.css';
 import React, { useContext, useEffect, useState } from 'react';
-import { loansContext } from '../../contexts/loansContext';
 import { userContext } from '../../contexts/userContext';
 import { Link } from 'react-router-dom';
 import { axiosValidateUser } from '../../services/authServices';
@@ -10,9 +9,11 @@ function ValidateUser() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        let token = urlParams.get('token');
-        axiosValidateUser(token);
-        setIsLoading(false);
+        //const urlParams = new URLSearchParams(window.location.search);
+        //let token = urlParams.get('token');
+        console.log("PEPITO");
+        /*let r = axiosValidateUser(token);
+        setIsLoading(false);*/
     }, []);
 
     return (

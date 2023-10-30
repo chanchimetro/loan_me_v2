@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { loansContext } from '../../contexts/loansContext';
 import { userContext } from '../../contexts/userContext';
 import { axiosGetLoanOffers, axiosGetLoanRequests } from '../../services/loanServices';
-import LoanCard from '../../elements/loanCard/LoanCard';
 import { Link } from 'react-router-dom';
 
 function Home() {
