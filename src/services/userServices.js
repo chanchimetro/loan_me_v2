@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let url = "http://190.245.165.87:4433/api/profile/";
+let url = "10.152.2.102:4433/api/profile/";
 
 const axiosGetUserInfo = async (sessionId) => {
 	return await axios.get(url + "getUserInfo", {

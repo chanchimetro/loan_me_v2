@@ -5,6 +5,7 @@ import Layout from "./pages/Layout/Layout.js";
 import Home from "./pages/Home/Home.js";
 import Profile from './pages/Profile/Profile.js';
 import Loans from './pages/Loans/Loans.js';
+import ValidateUser from './pages/validateUser/ValidateUser';
 import { userContext } from './contexts/userContext.js';
 import { loansContext } from './contexts/loansContext';
 
@@ -25,6 +26,7 @@ function App() {
             <Route index element={<Home/>} />
             <Route path='profile' element={<Profile/>} />
             <Route path='loans' element={<Loans/>} />
+            <Route path='validateUser/:token' element={<ValidateUser/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
