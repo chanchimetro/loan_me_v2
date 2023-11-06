@@ -2,36 +2,26 @@ import React, { useContext, useState } from "react";
 import { userContext } from "../../contexts/userContext";
 import { axiosPostLoanOffer, axiosPostLoanRequest } from "../../services/loanServices";
 
-/*
-{
-	"Loan": {
-		"monto": 1241242,
-		"interes": 5.5,
-		"plazoPago": "YYYY-MM-DD H:M:S",
-		"intervaloPago": "String. formato a cambiar?",
-		"riesgo": 20
-	}
-}
-*/
-
 const handleSubmit = (e, str, SessionId, intervaloPago) => {
+	let now = new Date();
 	e.preventDefault();
-	console.log("e.target.monto.value");
-	console.log(e.target.monto.value);
-	/*let body = {
-		Loan: {
-			monto: e.target.monto.value,
-			interes: e.target.interes.value,
-			plazoPago: e.target.plazoPago.value,
-			intervaloPago: intervaloPago,
-			riesgo: 1
-		}
+	let wallet = "";
+	if (str === "Request") wallet = e.target.walletId.value;
+	console.log(wallet)
+	let Loan = {
+		monto: e.target.monto.value,
+		interes: e.target.interes.value,
+		plazoPago: e.target.plazoPago.value + " " + now.getUTCHours() + ":" + now.getUTCMinutes() + ":" + now.getUTCSeconds(),
+		intervaloPago: intervaloPago,
+		riesgo: 1,
+		walletId: wallet,
+		walletChain: "Bitcoin"
 	}
 	if (str === "Offer") {
-		axiosPostLoanOffer(SessionId, body);
+		axiosPostLoanOffer(SessionId, Loan);
 	} else if (str === "Request") {
-		axiosPostLoanRequest(SessionId, body);
-	}*/
+		axiosPostLoanRequest(SessionId, Loan);
+	}
 }
 
 export default function LoanForm({ str }) {
@@ -52,7 +42,7 @@ export default function LoanForm({ str }) {
 								<label for="" class="form-label">Monto</label>
 								<div class="input-group">
 									<span class="input-group-text fw-semibold" id="monto-addon">$</span>
-									<input type="text" class="form-control" placeholder="0000" aria-label="Monto" name="monto" id="monto" aria-describedby="monto-addon"/>
+									<input type="number" class="form-control" placeholder="0000" aria-label="Monto" name="monto" id="monto" aria-describedby="monto-addon" />
 								</div>
 							</div>
 							<div class="mb-3">
@@ -66,16 +56,24 @@ export default function LoanForm({ str }) {
 								<label for="" class="form-label">Plazo de pago</label>
 								<input type="date" class="form-control" id="plazoPago" />
 							</div>
+							{
+								str === "Request" ?
+									<div class="mb-3">
+										<label for="" class="form-label">Wallet ID</label>
+										<input type="text" placeholder="Wallet ID" class="form-control" id="walletId" />
+									</div>
+									: <></>
+							}
 							<label for="" class="form-label">Intervalo de pagos</label>
 							<select class="form-select mb-3" onChange={(e) => setIntervaloPago(e.target.value)} aria-label="Default select example">
 								<option selected>Seleccione el intervalo</option>
-								<option value="1">1/semana</option>
-								<option value="2">2/semana</option>
-								<option value="3">1/mes</option>
+								<option value="1 por semana">1/semana</option>
+								<option value="2 por semana">2/semana</option>
+								<option value="1 por mes">1/mes</option>
 							</select>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-outline-success border border-2 border-success fw-semibold" data-bs-dismiss="modal">Crear</button>
+							<button type="submit" class="btn btn-outline-success border border-2 border-success fw-semibold" data-bs-dismiss="modal">Crear</button>
 						</div>
 					</form>
 				</div>

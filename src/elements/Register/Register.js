@@ -12,7 +12,6 @@ const handleRegister = async (e) => {
 		nombreCompleto: e.target.fullNameInput.value,
 		nombreUsuario: e.target.usernameInput.value,
 		contrasenna: e.target.passwordInput.value,
-		idWallet: e.target.walletInput.value,
 		tipoUsuario: e.target.userType.value
 	};
 	let perfil = {
@@ -66,10 +65,6 @@ function Register() {
 								<div class="mb-3">
 									<label for="passwordInput" class="form-label">Contraseña</label>
 									<input type="password" class="form-control border border-secondary" placeholder='Contraseña' id="passwordInput" />
-								</div>
-								<div class="mb-3">
-									<label for="walletInput" class="form-label">Wallet</label>
-									<input type="text" class="form-control border border-secondary" placeholder='Wallet' id="walletInput" />
 								</div>
 								<div class="mb-3">
 									<label for="dniInput" class="form-label">DNI</label>

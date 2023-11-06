@@ -1,7 +1,7 @@
 import './LoanCard.css'
-
 import React from "react";
 import { Link } from 'react-router-dom';
+import { Card, Container, Row, Col } from 'react-bootstrap';
 
 /*
 {
@@ -15,21 +15,32 @@ import { Link } from 'react-router-dom';
 				}
 */
 
-export default function LoanCard({ info }) {
+export default function LoanCard({ info, type }) {
 	return (
-
-			<div class="card mt-3 text-start text-decoration-none">
-				<div class="card-header fw-semibold ">
-					{info.loan.fechaCreacion}
+		<Link to={`/loan/${info.loan.id}/${type}`}>
+			<Card body className='card'>
+				<div className='loantitle'>
+					<p>Monto del préstamo</p>
+					<h1>$ {info.loan.monto}</h1>
 				</div>
-				<div class="card-body">
-					<h5 class="card-title">$ {info.loan.monto} + {info.loan.interes}%</h5>
-					<ul className='list-group list-group-flush rounded'>
-						<li class="list-group-item card-text border-bottom border-secondary">Plazo: {info.loan.plazoPago}</li>
-						<li class="list-group-item card-text border-bottom border-secondary">Intervalo: {info.loan.intervaloPago}</li>
-						<li class="list-group-item card-text">Riesgo: {info.loan.riesgo}</li>
-					</ul>
-				</div>
-			</div>
+				<hr className='hr' />
+				<Container>
+					<Row>
+						<Col>
+							<p>Plazo de pago</p>
+							<h5>{info.loan.intervaloPago}</h5>
+						</Col>
+						<Col>
+							<p>Fecha a pagar</p>
+							<h5>{info.loan.plazoPago}</h5>
+						</Col>
+						<Col>
+							<p>Interés</p>
+							<h5>{info.loan.interes}%</h5>
+						</Col>
+					</Row>
+				</Container>
+			</Card>
+		</Link>
 	);
 }

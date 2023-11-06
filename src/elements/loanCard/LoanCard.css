@@ -1,18 +1,27 @@
-.card
-{
+.card {
     background-color: rgba(194, 194, 194, 0.829);
 }
 
-.list-group
-{
-background-color: rgba(240, 248, 255, 0) !important;
-}
-.list-group-item
-{
-background-color: rgba(240, 248, 255, 0) !important;
+a {
+    text-decoration: none !important;
 }
 
-.card :hover
-{
-    box-shadow: 60px -16px rgb(119, 119, 119);
+p{
+	font-weight: bold;
+}
+
+.hr {
+    width: 100% !important;
+}
+
+.loantitle {
+    float: left;
+}
+
+.list-group {
+    background-color: rgba(240, 248, 255, 0) !important;
+}
+
+.list-group-item {
+    background-color: rgba(240, 248, 255, 0) !important;
 }

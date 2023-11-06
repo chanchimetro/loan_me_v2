@@ -2,3 +2,11 @@
 {
     background-color: rgba(255, 255, 255, 0.158);
 }
+
+ul {
+    list-style-type: none !important;
+}
+
+li {
+    margin-bottom: 2% !important;
+}

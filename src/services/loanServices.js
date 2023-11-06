@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let url = "http://10.152.2.102:4433/api/loans/";
+let url = "http://190.245.165.87:4433/api/loans/";
 
 const axiosGetLoanOffers = async (sessionId) => {
     return await axios.get(url + "getLoanOffers", {
@@ -18,24 +18,24 @@ const axiosGetLoanRequests = async (sessionId) => {
     });
 };
 
-const axiosGetLoanById = async (sessionId, loanId) => {
-    return await axios.get(url + "getLoanById", {
-        "LoanId": loanId
-    }, {
+const axiosGetLoanById = async (loanId, sessionId) => {
+    return await axios.get(url + "getLoanById/" + loanId, {
         headers: {
             "Authorization": sessionId
         }
-    });
+    })
 };
 
 const axiosPostLoanOffer = async (sessionId, loan) => {
-    return await axios.get(url + "createLoanOffer", {
+    return await axios.post(url + "createLoanOffer", {
         "Loan": {
-            "monto": loan.monto,
-            "interes": loan.interes,
+            "monto": parseFloat(loan.monto),
+            "interes": parseFloat(loan.interes),
             "plazoPago": loan.plazoPago,
             "intervaloPago": loan.intervaloPago,
-            "riesgo": loan.riesgo
+            "riesgo": parseInt(loan.riesgo),
+            "walletId": loan.walletId,
+            "walletChain": loan.walletChain
         }
     }, {
         headers: {
@@ -45,13 +45,15 @@ const axiosPostLoanOffer = async (sessionId, loan) => {
 };
 
 const axiosPostLoanRequest = async (sessionId, loan) => {
-    return await axios.get(url + "createLoanRequest", {
+    return await axios.post(url + "createLoanRequest", {
         "Loan": {
-            "monto": loan.monto,
-            "interes": loan.interes,
+            "monto": parseFloat(loan.monto),
+            "interes": parseFloat(loan.interes),
             "plazoPago": loan.plazoPago,
             "intervaloPago": loan.intervaloPago,
-            "riesgo": loan.riesgo
+            "riesgo": parseInt(loan.riesgo),
+            "walletId": loan.walletId,
+            "walletChain": loan.walletChain
         }
     }, {
         headers: {
@@ -60,10 +62,22 @@ const axiosPostLoanRequest = async (sessionId, loan) => {
     });
 };
 
+const axiosProposeCompleteLoan = async (sessionId, loanId, walletId) => {
+    return await axios.post(url + "proposeCompleteLoan", {
+        "LoanId": loanId,
+        "walletId": walletId
+    }, {
+        headers: {
+            "Authorization": sessionId
+        }
+    });
+}
+
 export {
     axiosGetLoanOffers,
     axiosGetLoanRequests,
     axiosGetLoanById,
     axiosPostLoanOffer,
-    axiosPostLoanRequest
+    axiosPostLoanRequest,
+    axiosProposeCompleteLoan,
 };

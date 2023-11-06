@@ -53,30 +53,35 @@ function Loans() {
 							<div className='row d-flex justify-content-center'>
 								<div className='h3 col-3'>Ofertas</div>
 								{
-									UserType === "Prestatario" ? 
-									<span className='col-1'>
-										<button className='btn btn-secondary fw-semibold' onClick={() => setStr("Offer")}>Crear</button>
-									</span> : <></>
+									UserType === "Prestamista" ?
+										<span className='col-1'>
+											<button className='btn btn-secondary fw-semibold' data-bs-toggle="modal" data-bs-target="#loanModal" onClick={() => setStr("Offer")}>Crear</button>
+										</span> : <></>
 								}
 							</div>
 							{
-								loans.loanOffers.length > 0 ? loans.loanOffers.map((x) => <LoanCard info={x}></LoanCard>) : <p className='text-muted'>No hay ofertas actualmente...</p>
+								loans.loanOffers.length > 0 ? loans.loanOffers.map((x) => <LoanCard info={x} type="Offer"></LoanCard>) : <p className='text-muted'>No hay ofertas actualmente...</p>
 							}
 						</div>
 						<div className='col'>
 							<div className='row d-flex justify-content-center'>
 								<div className='h3 col-3'>Peticiones</div>
-								<span className='col-1'>
-									<button className='btn btn-secondary fw-semibold' data-bs-toggle="modal" data-bs-target="#loanModal" onClick={() => setStr("Request")}>Crear</button>
-								</span>
+								{
+									UserType === "Prestatario" ?
+										<span className='col-1'>
+											<button className='btn btn-secondary fw-semibold' data-bs-toggle="modal" data-bs-target="#loanModal" onClick={() => setStr("Request")}>Crear</button>
+										</span> : <></>
+								}
 							</div>
-							{
-								loans.loanRequests.length > 0 ? loans.loanRequests.map((x) => <LoanCard info={x}></LoanCard>) : <p className='text-muted'>No hay peticiones actualmente...</p>
-							}
+							<ul>
+								{
+									loans.loanRequests.length > 0 ? loans.loanRequests.map((x) => <li><LoanCard info={x} type="Request"></LoanCard></li>) : <p className='text-muted'>No hay peticiones actualmente...</p>
+								}
+							</ul>
 						</div>
 					</div>
 				</span>
-				<LoanForm str={str}/>
+				<LoanForm str={str} />
 			</>
 	);
 }
