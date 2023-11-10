@@ -42,14 +42,14 @@ export default function LoanForm({ str }) {
 								<label for="" class="form-label">Monto</label>
 								<div class="input-group">
 									<span class="input-group-text fw-semibold" id="monto-addon">$</span>
-									<input type="number" class="form-control" placeholder="0000" aria-label="Monto" name="monto" id="monto" aria-describedby="monto-addon" />
+									<input type="number" min={0} class="form-control" placeholder="0000" aria-label="Monto" name="monto" id="monto" aria-describedby="monto-addon" />
 								</div>
 							</div>
 							<div class="mb-3">
 								<label for="" class="form-label">Interes</label>
 								<div class="input-group">
 									<span class="input-group-text fw-semibold" id="interes-addon">%</span>
-									<input type="number" class="form-control" placeholder="0" aria-label="Interes" id="interes" aria-describedby="interes-addon" />
+									<input type="number" min={0} class="form-control" placeholder="0" aria-label="Interes" id="interes" aria-describedby="interes-addon" />
 								</div>
 							</div>
 							<div class="mb-3">

@@ -73,9 +73,9 @@ function Loans() {
 										</span> : <></>
 								}
 							</div>
-							<ul>
+							<ul className='loan-us'>
 								{
-									loans.loanRequests.length > 0 ? loans.loanRequests.map((x) => <li><LoanCard info={x} type="Request"></LoanCard></li>) : <p className='text-muted'>No hay peticiones actualmente...</p>
+									loans.loanRequests.length > 0 ? loans.loanRequests.map((x) => <li className='loan-li'><LoanCard info={x} type="Request"></LoanCard></li>) : <p className='text-muted'>No hay peticiones actualmente...</p>
 								}
 							</ul>
 						</div>

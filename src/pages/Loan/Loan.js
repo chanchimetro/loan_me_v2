@@ -2,7 +2,6 @@ import './Loan.css';
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { axiosGetLoanById, axiosProposeCompleteLoan } from '../../services/loanServices';
-import { axiosGetUserInfo } from '../../services/userServices';
 import { userContext } from '../../contexts/userContext';
 import { Button, Card, Col, Container, Row, Modal } from 'react-bootstrap';
 
@@ -13,22 +12,26 @@ function Loan() {
 	const [isLoading, setIsLoading] = useState(true);
 	const [info, setInfo] = useState({});
 	const [show, setShow] = useState(false);
+	const [showAccept, setShowAccept] = useState(true);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-	
+
 	const handleAccept = async (e, sessionId, loanId, idwallet) => {
 		e.preventDefault();
 		let r = axiosProposeCompleteLoan(sessionId, loanId, idwallet)
 		handleClose();
 	}
-	
-	const getLoanInfo = async (SessionId, setIsLoading, setInfo) => {
+
+	const getLoanInfo = async (SessionId, setInfo) => {
 		console.log(type);
 		try {
 			let r = await axiosGetLoanById(id, SessionId);
-			setInfo(r.data);
+			await setInfo(r.data);
 			console.log(r.data);
 			setIsLoading(false);
+			if (info.prestamista?.nombreUsuario === context.user.Username || info.prestatario?.nombreUsuario === context.user.Username) {
+				setShowAccept(false); 
+			}
 		} catch (e) {
 			console.log(e);
 		}
@@ -87,11 +90,15 @@ function Loan() {
 							<hr></hr>
 						</Row>
 						<Row>
-							<Col xs={6}>
-								<Button variant="success" onClick={handleShow}>
-									Aceptar
-								</Button>
-							</Col>
+							{
+								showAccept ?
+									<Col xs={6}>
+										<Button variant="success" onClick={handleShow}>
+											Aceptar
+										</Button>
+									</Col>
+									: <></>
+							}
 						</Row>
 					</Container>
 				</Card>

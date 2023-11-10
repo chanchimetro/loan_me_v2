@@ -16,7 +16,7 @@ function ValidateUser() {
 				<div className='row col text-center'>
 					<p><b>Tu usuario fue validado!</b></p> :
 					<>
-						<Link to='/loans'>Pagina principal</Link>
+						<Link to='/'>Pagina principal</Link>
 					</>
 				</div>
 			</span>
