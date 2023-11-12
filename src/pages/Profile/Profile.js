@@ -48,7 +48,7 @@ function Profile() {
 						</ul>
 					</div>
 					{
-						userInfo.Usuario.tipoUsuario === "Prestatario" ? <></>:
+						userInfo.Usuario.tipoUsuario === "Prestamista" ? <></>:
 							<div className='col text-center d-flex align-items-center'>
 								<ul class="list-group w-75 mx-auto">
 									<li class="list-group-item">

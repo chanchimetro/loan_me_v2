@@ -19,12 +19,22 @@ export default function LoanCard({ info, type }) {
 	return (
 		<Link to={`/loan/${info.loan.id}/${type}`}>
 			<Card body className='card'>
-				<div className='loantitle'>
-					<p>Monto del préstamo</p>
-					<h1>$ {info.loan.monto}</h1>
-				</div>
-				<hr className='hr' />
 				<Container>
+					<Row>
+						<Col>
+							<div className='loantitle'>
+								<p>Monto del préstamo</p>
+								<h1>$ {info.loan.monto}</h1>
+							</div>
+						</Col>
+						<Col>
+							<div className=''>
+								<p>Moneda</p>
+								<h5>{info.loan.walletChain}</h5>
+							</div>
+						</Col>
+					</Row>
+					<hr className='hr' />
 					<Row>
 						<Col>
 							<p>Plazo de pago</p>
@@ -41,6 +51,6 @@ export default function LoanCard({ info, type }) {
 					</Row>
 				</Container>
 			</Card>
-		</Link>
+		</Link >
 	);
 }

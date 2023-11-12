@@ -2,3 +2,15 @@
 {
     background-color: rgba(255, 255, 255, 0.158);
 }
+
+.loan-ul {
+    list-style-type: none;
+}
+
+.loan-li {
+    margin-bottom: 2%;
+}
+
+label{
+    float: left;
+}

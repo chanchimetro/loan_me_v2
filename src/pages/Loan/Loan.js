@@ -2,8 +2,10 @@ import './Loan.css';
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { axiosGetLoanById, axiosProposeCompleteLoan } from '../../services/loanServices';
+import { axiosGetUserInfo } from '../../services/userServices';
 import { userContext } from '../../contexts/userContext';
-import { Button, Card, Col, Container, Row, Modal } from 'react-bootstrap';
+import ProposalLi from '../../elements/Proposal-li/ProposalLi';
+import { Button, Card, Col, Container, Row, Modal, ListGroup } from 'react-bootstrap';
 
 
 function Loan() {
@@ -13,6 +15,8 @@ function Loan() {
 	const [info, setInfo] = useState({});
 	const [show, setShow] = useState(false);
 	const [showAccept, setShowAccept] = useState(true);
+	const [showProposals, setShowProposals] = useState(false)
+	const [loanProposals, setLoanProposals] = useState([]);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
@@ -22,15 +26,20 @@ function Loan() {
 		handleClose();
 	}
 
-	const getLoanInfo = async (SessionId, setInfo) => {
+	const getLoanInfo = async (SessionId, setIsLoading, setInfo) => {
 		console.log(type);
 		try {
 			let r = await axiosGetLoanById(id, SessionId);
 			await setInfo(r.data);
-			console.log(r.data);
 			setIsLoading(false);
-			if (info.prestamista?.nombreUsuario === context.user.Username || info.prestatario?.nombreUsuario === context.user.Username) {
-				setShowAccept(false); 
+			if (r.data.prestatario?.nombreUsuario === context.user.Username || r.data.prestamista?.nombreUsuario === context.user.Username) {
+				setShowAccept(false);
+				setShowProposals(true);
+				await setLoanProposals(context.user.LoanProposals);
+			}
+			if (r.data.prestatario && r.data.prestamista) {
+				setShowAccept(false);
+				setShowProposals(false);
 			}
 		} catch (e) {
 			console.log(e);
@@ -65,43 +74,68 @@ function Loan() {
 				</form>
 			</Modal>
 			<Container className='loanCard'>
-				<Card body>
-					<div className='loantitle'>
-						<p>Monto del préstamo</p>
-						<h1>$ {info.loan.monto}</h1>
-					</div>
-					<hr className='hr' />
-					<Container>
-						<Row>
-							<Col>
-								<p>Plazo de pago</p>
-								<h5>{info.loan.intervaloPago}</h5>
-							</Col>
-							<Col>
-								<p>Fecha a pagar</p>
-								<h5>{info.loan.plazoPago}</h5>
-							</Col>
-							<Col>
-								<p>Interés</p>
-								<h5>{info.loan.interes}%</h5>
-							</Col>
-						</Row>
-						<Row>
-							<hr></hr>
-						</Row>
-						<Row>
-							{
-								showAccept ?
-									<Col xs={6}>
-										<Button variant="success" onClick={handleShow}>
-											Aceptar
-										</Button>
+				<Row>
+					<Col>
+						<Card body>
+							<Container>
+								<Row>
+									<Col>
+										<div className='loantitle'>
+											<p>Monto del préstamo</p>
+											<h1>$ {info.loan.monto}</h1>
+										</div>
 									</Col>
-									: <></>
-							}
-						</Row>
-					</Container>
-				</Card>
+									<Col>
+										<div className=''>
+											<p>Moneda</p>
+											<h5>{info.loan.walletChain}</h5>
+										</div>
+									</Col>
+								</Row>
+								<hr className='hr' />
+								<Row>
+									<Col>
+										<p>Plazo de pago</p>
+										<h5>{info.loan.intervaloPago}</h5>
+									</Col>
+									<Col>
+										<p>Fecha a pagar</p>
+										<h5>{info.loan.plazoPago}</h5>
+									</Col>
+									<Col>
+										<p>Interés</p>
+										<h5>{info.loan.interes}%</h5>
+									</Col>
+								</Row>
+								{
+									showAccept ?
+										<>
+											<hr></hr>
+											<Row>
+												<Col xs={6}>
+													<Button variant="success" onClick={handleShow}>
+														Aceptar
+													</Button>
+												</Col>
+												: <></>
+											</Row>
+										</> : <></>
+								}
+							</Container>
+						</Card>
+					</Col>
+					{
+						!showProposals ? <></> :
+							<Col xs={4}>
+								<Card body>
+									<h4>Propuestas:</h4>
+									<ListGroup className='proposals-list'>
+										{loanProposals.map((p) => (p.LoanId === parseInt(id)) ? <ProposalLi data={p} /> : <></>)}
+									</ListGroup>
+								</Card>
+							</Col>
+					}
+				</Row>
 			</Container>
 		</>
 	);

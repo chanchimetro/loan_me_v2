@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { userContext } from "../../contexts/userContext";
-import { axiosPostLoanOffer, axiosPostLoanRequest } from "../../services/loanServices";
+import { axiosPostLoanOffer, axiosPostLoanRequest, axiosGetAcceptedCurrencies } from "../../services/loanServices";
 
-const handleSubmit = (e, str, SessionId, intervaloPago) => {
+const handleSubmit = (e, str, SessionId, intervaloPago, selectedCurrency) => {
 	let now = new Date();
 	e.preventDefault();
 	let wallet = "";
@@ -15,7 +15,7 @@ const handleSubmit = (e, str, SessionId, intervaloPago) => {
 		intervaloPago: intervaloPago,
 		riesgo: 1,
 		walletId: wallet,
-		walletChain: "Bitcoin"
+		walletChain: selectedCurrency
 	}
 	if (str === "Offer") {
 		axiosPostLoanOffer(SessionId, Loan);
@@ -27,8 +27,22 @@ const handleSubmit = (e, str, SessionId, intervaloPago) => {
 export default function LoanForm({ str }) {
 	let context = useContext(userContext);
 	const [intervaloPago, setIntervaloPago] = useState("");
+	const [selectedCurrency, setSelectedCurrency] = useState("");
+	const [isLoading, setIsLoading] = useState(true);
+	const [acceptedCurrencies, setAcceptedCurrencies] = useState([]);
+
+	useEffect(() => {
+		const func = async () => {
+			await setAcceptedCurrencies(axiosGetAcceptedCurrencies());
+			console.log("acceptedCurrencies")
+			console.log(acceptedCurrencies[0])
+			setIsLoading(false);
+		}
+		func();
+	}, []);
 
 	return (
+		isLoading ? <></> :
 		<div class="modal fade" id="loanModal" tabindex="-1" aria-labelledby="loanModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
@@ -36,7 +50,7 @@ export default function LoanForm({ str }) {
 						<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<form onSubmit={(e) => handleSubmit(e, str, context.user.SessionId, intervaloPago)}>
+					<form onSubmit={(e) => handleSubmit(e, str, context.user.SessionId, intervaloPago, selectedCurrency)}>
 						<div class="modal-body">
 							<div class="mb-3">
 								<label for="" class="form-label">Monto</label>
@@ -56,6 +70,13 @@ export default function LoanForm({ str }) {
 								<label for="" class="form-label">Plazo de pago</label>
 								<input type="date" class="form-control" id="plazoPago" />
 							</div>
+							<label for="" class="form-label">Intervalo de pagos</label>
+							<select class="form-select mb-3" onChange={(e) => setIntervaloPago(e.target.value)} aria-label="Default select example">
+								<option selected>Seleccione el intervalo</option>
+								<option value="1 por semana">1/semana</option>
+								<option value="2 por semana">2/semana</option>
+								<option value="1 por mes">1/mes</option>
+							</select>
 							{
 								str === "Request" ?
 									<div class="mb-3">
@@ -65,11 +86,11 @@ export default function LoanForm({ str }) {
 									: <></>
 							}
 							<label for="" class="form-label">Intervalo de pagos</label>
-							<select class="form-select mb-3" onChange={(e) => setIntervaloPago(e.target.value)} aria-label="Default select example">
-								<option selected>Seleccione el intervalo</option>
-								<option value="1 por semana">1/semana</option>
-								<option value="2 por semana">2/semana</option>
-								<option value="1 por mes">1/mes</option>
+							<select class="form-select mb-3" onChange={(e) => setSelectedCurrency(e.target.value)} aria-label="Default select example">
+								<option selected>Seleccione</option>
+								<option value={"Monero"}>Monero</option>
+								<option value={"BitcoinTestnet"}>Bitcoin</option>
+								<option value={"EthereumTestnet"}>Ethereum</option>
 							</select>
 						</div>
 						<div class="modal-footer">

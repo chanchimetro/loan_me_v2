@@ -5,7 +5,7 @@
 
 body
 {
-    background-image: url('../../assets/backdrop.png');
+    background-color: rgb(207, 207, 207);
 }
 
 .navbar

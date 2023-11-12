@@ -78,7 +78,7 @@ function Register() {
 								</select>
 							</div>
 							<div class="modal-footer border-top border-secondary">
-								{userType === "Prestatario" ? <>
+								{userType === "Prestamista" ? <>
 									<input type="hidden" className="form-control" id="creditHistory" value='x' />
 									<input type="hidden" className="form-control" id="revenueProof" value='x' />
 									<input type="hidden" className="form-control" id="financialDesc" value='x' />
@@ -91,7 +91,7 @@ function Register() {
 						</div>
 					</div>
 				</div>
-				{userType === "Prestatario" ? <></> :
+				{userType === "Prestamista" ? <></> :
 					<div class="modal fade" id="optionalModal" aria-hidden="true" aria-labelledby="optionalModalLabel" tabindex="-1">
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">

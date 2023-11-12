@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let url = "http://10.152.2.7:4433/api/loans/";
+let url = "http://190.245.165.87:4433/api/loans/";
 
 const axiosGetLoanOffers = async (sessionId) => {
     return await axios.get(url + "getLoanOffers", {
@@ -73,6 +73,23 @@ const axiosProposeCompleteLoan = async (sessionId, loanId, walletId) => {
     });
 }
 
+const axiosCompleteLoan = async (sessionId, loanId, walletId) => {
+    return await axios.post(url + "proposeCompleteLoan", {
+        "LoanProposal": {
+            "LoanId": loanId,
+            "walletId": walletId
+        }
+    }, {
+        headers: {
+            "Authorization": sessionId
+        }
+    });
+}
+
+const axiosGetAcceptedCurrencies = async () => {
+    return await axios.get("http://190.245.165.87:4433/api/payment/getAcceptedCurrencies");
+}
+
 export {
     axiosGetLoanOffers,
     axiosGetLoanRequests,
@@ -80,4 +97,6 @@ export {
     axiosPostLoanOffer,
     axiosPostLoanRequest,
     axiosProposeCompleteLoan,
+    axiosCompleteLoan,
+    axiosGetAcceptedCurrencies,
 };

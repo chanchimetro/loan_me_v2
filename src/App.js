@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from "./pages/Layout/Layout.js";
 import Home from "./pages/Home/Home.js";
 import Profile from './pages/Profile/Profile.js';
-import Loans from './pages/Loans/Loans.js';
 import ValidateUser from './pages/validateUser/ValidateUser';
 import Loan from './pages/Loan/Loan.js';
 import { userContext } from './contexts/userContext.js';
@@ -26,7 +25,6 @@ function App() {
           <Route path="/" element={<Layout/>}>
             <Route index element={<Home/>} />
             <Route path='profile' element={<Profile/>} />
-            <Route path='loans' element={<Loans/>} />
             <Route path='validateUser' element={<ValidateUser/>}/>
             <Route path='loan/:id/:type' element={<Loan/>}/>
           </Route>
