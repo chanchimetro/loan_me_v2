@@ -1,8 +1,7 @@
 import './Loan.css';
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { axiosGetLoanById, axiosProposeCompleteLoan } from '../../services/loanServices';
-import { axiosGetUserInfo } from '../../services/userServices';
+import { axiosAddTxn, axiosGetLoanById, axiosProposeCompleteLoan } from '../../services/loanServices';
 import { userContext } from '../../contexts/userContext';
 import ProposalLi from '../../elements/Proposal-li/ProposalLi';
 import { Button, Card, Col, Container, Row, Modal, ListGroup } from 'react-bootstrap';
@@ -14,10 +13,13 @@ function Loan() {
 	const [isLoading, setIsLoading] = useState(true);
 	const [info, setInfo] = useState({});
 	const [show, setShow] = useState(false);
+	const [show2, setShow2] = useState(false);
 	const [showAccept, setShowAccept] = useState(true);
-	const [showProposals, setShowProposals] = useState(false)
+	const [showProposals, setShowProposals] = useState(false);
+	const [myLoan, setMyLoan] = useState(false);
 	const [loanProposals, setLoanProposals] = useState([]);
 	const handleClose = () => setShow(false);
+	const handleClose2 = () => setShow2(false);
 	const handleShow = () => setShow(true);
 
 	const handleAccept = async (e, sessionId, loanId, idwallet) => {
@@ -26,18 +28,26 @@ function Loan() {
 		handleClose();
 	}
 
+	const handleTxn = async (e, sessionId, loanId, txnId) => {
+		e.preventDefault();
+		let r = axiosAddTxn(sessionId, loanId, txnId)
+		handleClose();
+	}
+
 	const getLoanInfo = async (SessionId, setIsLoading, setInfo) => {
 		console.log(type);
 		try {
 			let r = await axiosGetLoanById(id, SessionId);
 			await setInfo(r.data);
+			console.log(info);
 			setIsLoading(false);
 			if (r.data.prestatario?.nombreUsuario === context.user.Username || r.data.prestamista?.nombreUsuario === context.user.Username) {
 				setShowAccept(false);
 				setShowProposals(true);
+				setMyLoan(true);
 				await setLoanProposals(context.user.LoanProposals);
 			}
-			if (r.data.prestatario && r.data.prestamista) {
+			if (r.data.prestatario != null && r.data.prestamista != null) {
 				setShowAccept(false);
 				setShowProposals(false);
 			}
@@ -52,6 +62,27 @@ function Loan() {
 
 	return (
 		isLoading ? <></> : <>
+			<Modal show={show2} onHide={handleClose2}>
+				<Modal.Header closeButton>
+					<Modal.Title></Modal.Title>
+				</Modal.Header>
+				<form onSubmit={(e) => handleTxn(e, context.user.SessionId, info.loan.id, e.target.txnId.value)}>
+					<Modal.Body>
+						<div class="mb-3">
+							<label for="" class="form-label">Txn ID</label>
+							<input type="text" class="form-control" id="txnId" />
+						</div>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button variant="secondary" onClick={handleClose2}>
+							Close
+						</Button>
+						<Button variant="success" type='submit'>
+							Confirmar
+						</Button>
+					</Modal.Footer>
+				</form>
+			</Modal>
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
 					<Modal.Title></Modal.Title>
@@ -117,12 +148,36 @@ function Loan() {
 														Aceptar
 													</Button>
 												</Col>
-												: <></>
 											</Row>
 										</> : <></>
 								}
 							</Container>
 						</Card>
+						{
+							myLoan ?
+								<Card body className='mt-3'>
+									<Container>
+										<Row>
+											<Col>
+												<div className='loantitle'>
+													<p>Wallet Id</p>
+													<h5>{info.loan.walletId}</h5>
+												</div>
+											</Col>
+											<Col>
+												<div className=''>
+													<p>WalletId de retorno</p>
+													<h5>{info.loan.returnWalletId}</h5>
+												</div>
+											</Col>
+										</Row>
+										{
+											context.user.UserType === "Prestatario" ?
+											<Row><Button onClick={()=>setShow2(true)} variant='success' className='mt-3'>Agregar Transaccion</Button></Row>:<></>
+										}
+									</Container>
+								</Card> : <></>
+						}
 					</Col>
 					{
 						!showProposals ? <></> :

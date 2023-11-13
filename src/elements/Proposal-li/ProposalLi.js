@@ -8,7 +8,7 @@ export default function ProposalLi({ data }) {
 	const context = useContext(userContext);
 
 	const handleCompleteLoan = () => {
-		
+		let r = axiosCompleteLoan(context.user.SessionId, data.LoanId, data.User.id);
 	}
 
 	return (
@@ -23,7 +23,7 @@ export default function ProposalLi({ data }) {
 					</Row>
 				</Col>
 				<Col xs={2}>
-					<Button onClick={handleCompleteLoan()}>Ok</Button>
+					<Button onClick={() => handleCompleteLoan()}>Ok</Button>
 				</Col>
 			</Container>
 		</ListGroup.Item>

@@ -34,7 +34,8 @@ const axiosPostLoanOffer = async (sessionId, loan) => {
             "plazoPago": loan.plazoPago,
             "intervaloPago": loan.intervaloPago,
             "riesgo": parseInt(loan.riesgo),
-            "walletId": loan.walletId,
+            "walletId": "",
+            "returnWalletId": loan.returnWalletId,
             "walletChain": loan.walletChain
         }
     }, {
@@ -53,6 +54,7 @@ const axiosPostLoanRequest = async (sessionId, loan) => {
             "intervaloPago": loan.intervaloPago,
             "riesgo": parseInt(loan.riesgo),
             "walletId": loan.walletId,
+            "returnWalletId": "",
             "walletChain": loan.walletChain
         }
     }, {
@@ -73,12 +75,11 @@ const axiosProposeCompleteLoan = async (sessionId, loanId, walletId) => {
     });
 }
 
-const axiosCompleteLoan = async (sessionId, loanId, walletId) => {
-    return await axios.post(url + "proposeCompleteLoan", {
-        "LoanProposal": {
+const axiosCompleteLoan = async (sessionId, loanId, UserId) => {
+    return await axios.patch(url + "completeLoan", {
             "LoanId": loanId,
-            "walletId": walletId
-        }
+            "walletId": "",
+            "UserId": UserId
     }, {
         headers: {
             "Authorization": sessionId
@@ -90,6 +91,19 @@ const axiosGetAcceptedCurrencies = async () => {
     return await axios.get("http://190.245.165.87:4433/api/payment/getAcceptedCurrencies");
 }
 
+const axiosAddTxn = async (sessionId, loanId, txnId) => {
+    return await axios.post("http://190.245.165.87:4433/api/payment/addTxn", {
+        "txn":{
+            "LoanId": loanId,
+            "txnId": txnId
+        }
+    }, {
+        headers: {
+            "Authorization": sessionId
+        }
+    });
+}
+
 export {
     axiosGetLoanOffers,
     axiosGetLoanRequests,
@@ -99,4 +113,5 @@ export {
     axiosProposeCompleteLoan,
     axiosCompleteLoan,
     axiosGetAcceptedCurrencies,
+    axiosAddTxn,
 };

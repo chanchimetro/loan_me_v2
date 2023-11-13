@@ -39,6 +39,12 @@ function Layout() {
 							<li className="nav-item">
 								<Link className='nav-link active' to="/">Home</Link>
 							</li>
+							{
+								context.user.Username != "" ?
+									<li className="nav-item">
+										<Link className='nav-link active' to="myLoans">Mis Prestamos</Link>
+									</li> : <></>
+							}
 						</ul>
 						<div className='d-flex'>
 							{

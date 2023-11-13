@@ -6,6 +6,7 @@ import Home from "./pages/Home/Home.js";
 import Profile from './pages/Profile/Profile.js';
 import ValidateUser from './pages/validateUser/ValidateUser';
 import Loan from './pages/Loan/Loan.js';
+import MyLoans from './pages/MyLoans/MyLoans.js';
 import { userContext } from './contexts/userContext.js';
 import { loansContext } from './contexts/loansContext';
 
@@ -26,6 +27,7 @@ function App() {
             <Route index element={<Home/>} />
             <Route path='profile' element={<Profile/>} />
             <Route path='validateUser' element={<ValidateUser/>}/>
+            <Route path='myLoans' element={<MyLoans/>}/>
             <Route path='loan/:id/:type' element={<Loan/>}/>
           </Route>
         </Routes>

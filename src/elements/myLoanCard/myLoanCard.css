@@ -1,0 +1,31 @@
+.card {
+    background-color: rgba(194, 194, 194, 0.829);
+}
+
+a {
+    text-decoration: none !important;
+}
+
+p{
+	font-weight: bold;
+}
+
+.hr {
+    width: 100% !important;
+}
+
+.loantitle {
+    float: left;
+}
+
+.loantitle h1 {
+    float: left;
+}
+
+.list-group {
+    background-color: rgba(240, 248, 255, 0) !important;
+}
+
+.list-group-item {
+    background-color: rgba(240, 248, 255, 0) !important;
+}
