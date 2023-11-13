@@ -9,6 +9,7 @@ import Loan from './pages/Loan/Loan.js';
 import MyLoans from './pages/MyLoans/MyLoans.js';
 import { userContext } from './contexts/userContext.js';
 import { loansContext } from './contexts/loansContext';
+import RestorePwd from './pages/restorePwd/RestorePwd.js';
 
 function App() {
   const [user, setUser] = useState({
@@ -27,6 +28,7 @@ function App() {
             <Route index element={<Home/>} />
             <Route path='profile' element={<Profile/>} />
             <Route path='validateUser' element={<ValidateUser/>}/>
+            <Route path='restorePwd' element={<RestorePwd/>}/>
             <Route path='myLoans' element={<MyLoans/>}/>
             <Route path='loan/:id/:type' element={<Loan/>}/>
           </Route>

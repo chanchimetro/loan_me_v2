@@ -88,7 +88,7 @@ function Loan() {
 						<Button variant="secondary" onClick={handleClose2}>
 							Close
 						</Button>
-						<Button variant="success" type='submit'>
+						<Button variant="success" type='submit' onClick={handleClose2}>
 							Confirmar
 						</Button>
 					</Modal.Footer>

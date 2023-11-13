@@ -26,8 +26,19 @@ const axiosChangeCredit = async (data, sessionId) => {
 	})
 };
 
+const axiosRequestPwdRestore = async (username) => {
+    return await axios.post(url+'requestRestorePwd', {username});
+}
+
+const axiosRestorePwd = async (restoreId, newPwd) => {
+	console.log("axrpwd", newPwd);
+    return await axios.put(url+'restorePwd/'+restoreId, {newPwd});
+}
+
 export {
 	axiosGetUserInfo,
 	axiosChangePwd,
-	axiosChangeCredit
+	axiosChangeCredit,
+	axiosRequestPwdRestore,
+	axiosRestorePwd
 };
