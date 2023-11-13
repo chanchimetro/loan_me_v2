@@ -12,10 +12,12 @@ function Loan() {
 	const { id, type } = useParams();
 	const [isLoading, setIsLoading] = useState(true);
 	const [info, setInfo] = useState({});
+	const [txns, setTxns] = useState([]);
 	const [show, setShow] = useState(false);
 	const [show2, setShow2] = useState(false);
 	const [showAccept, setShowAccept] = useState(true);
 	const [showProposals, setShowProposals] = useState(false);
+	const [showAddTxns, setShowAddTxns] = useState(false);
 	const [myLoan, setMyLoan] = useState(false);
 	const [loanProposals, setLoanProposals] = useState([]);
 	const handleClose = () => setShow(false);
@@ -50,11 +52,20 @@ function Loan() {
 			if (r.data.prestatario != null && r.data.prestamista != null) {
 				setShowAccept(false);
 				setShowProposals(false);
+				setShowAddTxns(true);
 			}
+
+			console.log("response", r);
+			console.log("kek", r.data.txns.length);
+			setTxns(r.data.txns);
 		} catch (e) {
 			console.log(e);
 		}
 	}
+
+	useEffect(() => {
+		console.log("txns", txns);
+	}, [txns])
 
 	useEffect(() => {
 		getLoanInfo(context.user.SessionId, setIsLoading, setInfo);
@@ -156,8 +167,8 @@ function Loan() {
 						{
 							myLoan ?
 								<Card body className='mt-3'>
-									<Container>
-										<Row>
+									<Container style={{display: "flex", justifyContent: "center", flexDirection: "column"}}>
+										<Row style={{justifyContent: "space-around"}}>
 											<Col>
 												<div className='loantitle'>
 													<p>Wallet Id</p>
@@ -172,9 +183,22 @@ function Loan() {
 											</Col>
 										</Row>
 										{
-											context.user.UserType === "Prestatario" ?
-											<Row><Button onClick={()=>setShow2(true)} variant='success' className='mt-3'>Agregar Transaccion</Button></Row>:<></>
+											showAddTxns ?
+
+											context.user.UserType === "Prestamista" ?
+												(txns.length === 0 ? <Row><Button onClick={()=>setShow2(true)} variant='success' className='mt-3'>Agregar Transaccion</Button></Row> : <></>)
+												:
+												(txns.length === 0 ? <></> : <Row><Button onClick={()=>setShow2(true)} variant='success' className='mt-3'>Agregar Transaccion</Button></Row>)
+
+											:
+
+											<></>
 										}
+										<Container style={{display: "flex", justifyContent: "center", flexDirection: "column", marginTop: "2%"}}>
+										{
+											txns.map((txn, idx) => (<div>Txn {idx}: {txn.txnId}</div>))
+										}
+										</Container>
 									</Container>
 								</Card> : <></>
 						}

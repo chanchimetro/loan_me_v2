@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let url = "http://190.245.165.87:4433/api/loans/";
+let url = "http://localhost:4433/api/loans/";
 
 const axiosGetLoanOffers = async (sessionId) => {
     return await axios.get(url + "getLoanOffers", {
@@ -88,11 +88,11 @@ const axiosCompleteLoan = async (sessionId, loanId, UserId) => {
 }
 
 const axiosGetAcceptedCurrencies = async () => {
-    return await axios.get("http://190.245.165.87:4433/api/payment/getAcceptedCurrencies");
+    return await axios.get("http://localhost:4433/api/payment/getAcceptedCurrencies");
 }
 
 const axiosAddTxn = async (sessionId, loanId, txnId) => {
-    return await axios.post("http://190.245.165.87:4433/api/payment/addTxn", {
+    return await axios.post("http://localhost:4433/api/payment/addTxn", {
         "txn":{
             "LoanId": loanId,
             "txnId": txnId
